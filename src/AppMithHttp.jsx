@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 
 // {
@@ -27,12 +28,27 @@ import "./App.css";
 
 
 const AppMithHttp = () => {
+
+const [products, setProducts] = useState(null)
+
+useEffect(() => {
+  async function fetchProducts () {
+const response = await MyAPI.getData(someId)
+  }
+  fetchProducts()
+},[])
+
   return (
     <div>
       <h1>Smart Ukrainian Big Product Store</h1>
       <ul>
         <li>
+          <img width={250} src="" alt="" />
             <h2>title</h2>
+            <h3>brand</h3>
+            <p>description</p>
+            <h4>price</h4>
+            <p>rating</p>
         </li>
       </ul>
     </div>
