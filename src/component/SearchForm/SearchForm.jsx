@@ -4,21 +4,19 @@ import * as Yup from "yup";
 const FORM_INITIAL_VALUES = {
   searchTerm: "",
 };
-
 const searchFormSchema = Yup.object({
   searchTerm: Yup.string().required("Search term is reguired"),
 });
-
 const SearchForm = ({ onAddUsers }) => {
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
+    console.log(values);
     onAddUsers(values);
   };
-
   return (
     <Formik
       initialValues={FORM_INITIAL_VALUES}
-      onSubmit={handleSubmit}
       validationSchema={searchFormSchema}
+      onSubmit={handleSubmit}
     >
       <Form>
         <h2>Search product by brand or name</h2>

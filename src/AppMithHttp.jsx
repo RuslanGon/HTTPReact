@@ -4,6 +4,7 @@ import Loader from "./component/Loader/Loader";
 import { reguestProducts } from "./serveses/api";
 import ErrorMessage from "./component/ErrorMessage/ErrorMessage";
 import ProductList from "./component/ProductList/ProductList";
+import SearchForm from "./component/SearchForm/SearchForm";
 
 
 const AppMithHttp = () => {
@@ -17,7 +18,7 @@ const AppMithHttp = () => {
         setIsLoading(true);
         const data = await reguestProducts();
         setProducts(data.products);
-        console.log(data);
+        // console.log(data);
       } catch {
         setIsError(true);
       } finally {
@@ -30,6 +31,7 @@ const AppMithHttp = () => {
   return (
     <div>
       <h1>Smart Ukrainian Big Product Store</h1>
+      <SearchForm />
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       <ProductList products={products} />
