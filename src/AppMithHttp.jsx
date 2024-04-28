@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Loader from "./component/Loader/Loader";
-import { reguestProducts } from "./serveses/api";
+import { reguestProducts, reguestProductsByQuery } from "./serveses/api";
 import ErrorMessage from "./component/ErrorMessage/ErrorMessage";
 import ProductList from "./component/ProductList/ProductList";
 import SearchForm from "./component/SearchForm/SearchForm";
@@ -29,6 +29,26 @@ const AppMithHttp = () => {
     }
     fetchProducts();
   }, []);
+
+
+useEffect(() => {
+if(query.length === 0)return
+async function fetchProductsByQuery() {
+  try {
+    setIsLoading(true);
+    const data = await reguestProductsByQuery(query);
+    setProducts(data.products);
+    // console.log(data);
+  } catch {
+    setIsError(true);
+  } finally {
+    setIsLoading(false);
+  }
+}
+fetchProductsByQuery();
+},[query])
+
+
 
   const onSearchQuery = (searchTerm) => {
     setQuery(searchTerm);
