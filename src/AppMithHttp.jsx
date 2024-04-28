@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Loader from "./component/Loader/Loader";
 import { reguestProducts } from "./serveses/api";
+import ErrorMessage from "./component/ErrorMessage/ErrorMessage";
+import ProductList from "./component/ProductList/ProductList";
 
 
 const AppMithHttp = () => {
@@ -29,22 +31,8 @@ const AppMithHttp = () => {
     <div>
       <h1>Smart Ukrainian Big Product Store</h1>
       {isLoading && <Loader />}
-      {isError && <p>Oops, something went wrong</p>}
-      <ul>
-        {Array.isArray(products) &&
-          products.map((product) => {
-            return (
-              <li key={product.id}>
-                <img width={250} src={product.thumbnail} alt={product.title} />
-                <h2>title: {product.title}</h2>
-                <h3>brand: {product.brand}</h3>
-                <p>description: {product.description}</p>
-                <h4>price: {product.price}</h4>
-                <p>rating: {product.rating}</p>
-              </li>
-            );
-          })}
-      </ul>
+      {isError && <ErrorMessage />}
+      <ProductList products={products} />
     </div>
   );
 };
