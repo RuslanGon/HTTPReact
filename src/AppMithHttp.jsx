@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import Loader from "./component/Loader/Loader";
 
 // {
 //     "products": [
@@ -26,11 +27,15 @@ import axios from "axios";
 
 const AppMithHttp = () => {
   const [products, setProducts] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+
 
   useEffect(() => {
     async function fetchProducts() {
+      setIsLoading(true)
       const { data } = await axios.get("https://dummyjson.com/products");
       setProducts(data.products);
+      setIsLoading(false)
 
       console.log(data);
     }
@@ -40,6 +45,7 @@ const AppMithHttp = () => {
   return (
     <div>
       <h1>Smart Ukrainian Big Product Store</h1>
+      {isLoading && <Loader /> }
       <ul>
         {Array.isArray(products) && products.map(product => {
           return (
