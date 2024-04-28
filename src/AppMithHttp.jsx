@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
 import Loader from "./component/Loader/Loader";
+import { reguestProducts } from "./serveses/api";
 
 
 const AppMithHttp = () => {
@@ -13,7 +13,7 @@ const AppMithHttp = () => {
     async function fetchProducts() {
       try {
         setIsLoading(true);
-        const { data } = await axios.get("https://dummyjson.com/products");
+        const data = await reguestProducts();
         setProducts(data.products);
         console.log(data);
       } catch {
