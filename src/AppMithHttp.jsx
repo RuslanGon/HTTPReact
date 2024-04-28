@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 // {
 //     "products": [
@@ -23,36 +24,38 @@ import "./App.css";
 //         ]
 //       }
 
-
-
-
-
 const AppMithHttp = () => {
+  const [products, setProducts] = useState(null);
 
-const [products, setProducts] = useState(null)
+  useEffect(() => {
+    async function fetchProducts() {
+      const { data } = await axios.get("https://dummyjson.com/products");
+      setProducts(data.products);
 
-useEffect(() => {
-  async function fetchProducts () {
-const response = await MyAPI.getData(someId)
-  }
-  fetchProducts()
-},[])
+      console.log(data);
+    }
+    fetchProducts();
+  }, []);
 
   return (
     <div>
       <h1>Smart Ukrainian Big Product Store</h1>
       <ul>
-        <li>
-          <img width={250} src="" alt="" />
-            <h2>title</h2>
-            <h3>brand</h3>
-            <p>description</p>
-            <h4>price</h4>
-            <p>rating</p>
+        {Array.isArray(products) && products.map(product => {
+          return (
+            <li key={product.id}>
+          <img width={250} src={product.thumbnail} alt={product.title} />
+          <h2>title: {product.title}</h2>
+          <h3>brand: {product.brand}</h3>
+          <p>description: {product.description}</p>
+          <h4>price: {product.price}</h4>
+          <p>rating: {product.rating}</p>
         </li>
+          )
+        }) }
       </ul>
     </div>
   );
-}
+};
 
-export default AppMithHttp
+export default AppMithHttp;
