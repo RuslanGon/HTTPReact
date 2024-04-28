@@ -7,10 +7,10 @@ const FORM_INITIAL_VALUES = {
 const searchFormSchema = Yup.object({
   searchTerm: Yup.string().required("Search term is reguired"),
 });
-const SearchForm = ({ onAddUsers }) => {
-  const handleSubmit = (values, actions) => {
-    console.log(values);
-    onAddUsers(values);
+const SearchForm = ({ onSearchQuery }) => {
+  const handleSubmit = (values) => {
+    // console.log(values);
+    onSearchQuery(values.searchTerm);
   };
   return (
     <Formik
